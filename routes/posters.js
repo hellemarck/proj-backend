@@ -13,9 +13,17 @@ const jwtSecret = process.env.JWT_SECRET;
 router.use(bodyParser.json());
 router.use(express.json());
 
+// get all posters
+router.get("/", function(req, res, next) {
+    db.all("SELECT * FROM posters", function(err, rows) {
+        if (err) return res.status(500).json(err);
 
-// Route to get report content
-router.get("/posters/:id", function(req, res, next) {
+        res.json(rows);
+    });
+})
+
+// Route to get poster content
+router.get("/:id", function(req, res, next) {
     db.each("SELECT * FROM posters WHERE id = " + req.params.id, function(err, row) {
         const data = {
             data: {

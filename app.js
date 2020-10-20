@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 
 const app = express();
-const port = 1338;
+const port = 3002;
 
 const index = require('./routes/index');
 const posters = require('./routes/posters');
