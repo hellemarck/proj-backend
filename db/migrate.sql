@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS tradings (
     price VARCHAR(1000) NOT NULL
 );
 
+DROP TABLE IF EXISTS posters;
 CREATE TABLE IF NOT EXISTS posters (
     id INT NOT NULL,
     title VARCHAR(50) NOT NULL,
@@ -25,7 +26,7 @@ CREATE TABLE IF NOT EXISTS posters (
 );
 
 INSERT INTO posters
-    (id, title, image, description)
+    (id, title, image, description, price)
 VALUES
     (1, "Swim for health", "poster3.jpg", "70x130cm", 250),
     (2, "Keeping up", "poster4.jpg", "60x90cm", 700),
