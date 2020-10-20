@@ -1,5 +1,5 @@
 {
-  "name": "me-api",
+  "name": "proj-backend",
   "version": "1.0.0",
   "description": "backend for course jsramverk, using express and node",
   "main": "index.js",

@@ -30,7 +30,8 @@ router.get("/:id", function(req, res, next) {
                 id: req.params.id,
                 title: row.title,
                 image: row.image,
-                description: row.description
+                description: row.description,
+                price: row.price
             }
         }
         res.json(data);
