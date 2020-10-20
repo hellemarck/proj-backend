@@ -37,26 +37,6 @@ router.get("/:id", function(req, res, next) {
     });
 })
 
-// Route to make changes in report texts
-// router.post("/", (req, res, next) => checkToken(req, res, next),
-// (req, res) => {
-//     const week = req.body.week;
-//     const report = req.body.report;
-//
-//     db.run("UPDATE reports SET report = (?) WHERE week = (?)",
-//     report,
-//     week, (err) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         res.status(201).json({
-//             data: {
-//                 title: "Got a POST request, sending back 201 Created",
-//                 msg: "table reports updated"
-//             }
-//         });
-//     });
-// });
 
 // function to verify user
 function checkToken(req, res, next) {
