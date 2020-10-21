@@ -69,7 +69,7 @@ router.post("/", (req, res) => {
 
             if (result) {
                 console.log("correct password");
-                const user = { email: email, id: id };
+                const user = { email: email };
                 const token = jwt.sign(user, jwtSecret, { expiresIn: '1h'});
 
                 return res.json({
@@ -77,6 +77,7 @@ router.post("/", (req, res) => {
                         type: "success",
                         message: "User logged in",
                         user: user,
+                        userid: row.id,
                         token: token
                     }
                 });

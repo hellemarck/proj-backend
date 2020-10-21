@@ -25,9 +25,9 @@ router.get("/:id", (req, res, next) => {
 
 // Route to update user money depot
 // need to check token?
-router.post("/:id", (req, res, next) => {
+router.post("/", (req, res, next) => {
     const deposit = req.body.deposit;
-    const kundid = req.params.id;
+    const kundid = req.body.id;
 
     db.run("UPDATE users SET depot = depot + (?) WHERE id = (?)",
     deposit,
