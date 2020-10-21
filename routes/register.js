@@ -25,8 +25,8 @@ router.post("/", (req, res) => {
     console.log(req.body.pw);
 
     bcrypt.hash(req.body.pw, saltRounds, function(err, hash) {
-        db.run("INSERT INTO users (id, depot, email, password) VALUES (?, ?, ?)",
-        NULL,
+        db.run("INSERT INTO users (id, depot, email, password) VALUES (?, ?, ?, ?)",
+        DEFAULT,
         100,
         req.body.email,
         hash, (err) => {

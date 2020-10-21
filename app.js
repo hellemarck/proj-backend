@@ -10,6 +10,10 @@ const index = require('./routes/index');
 const posters = require('./routes/posters');
 const register = require('./routes/register');
 const login = require('./routes/login');
+const users = require('./routes/users');
+const tradings = require('./routes/tradings');
+
+
 
 app.use(cors());
 
@@ -32,6 +36,8 @@ app.use('/', index);
 app.use('/posters', posters);
 app.use('/register', register);
 app.use('/login', login);
+app.use('/users', users);
+app.use('/tradings', tradings);
 
 
 //sending error to own error handler
@@ -64,14 +70,7 @@ app.use((req, res, next) => {
     next(err);
 });
 
-
-// Start up server
-// if (process.env.NODE_ENV == 'test') {
-//     const server = app.listen(1338);
-//     return server;
-// } else {
 const server = app.listen(port, () => console.log(`Example API listening on port ${port}!`));
-//     return server;
-// }
+
 
 module.exports = server;
