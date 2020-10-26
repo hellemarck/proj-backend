@@ -43,7 +43,8 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
     db.run("INSERT INTO tradings (kundid, object, event, price) VALUES (?, ?, ?, ?)",
     req.body.kundid,
     req.body.object,
-    req.body.event, (err) => {
+    req.body.event,
+    req.body.price, (err) => {
         if (err) {
             console.log(err);
         }
