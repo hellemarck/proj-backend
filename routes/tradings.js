@@ -40,19 +40,17 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
     console.log(req.body.event);
     console.log(req.body.price);
 
-    bcrypt.hash(req.body.pw, saltRounds, function(err, hash) {
-        db.run("INSERT INTO tradings (kundid, object, event, price) VALUES (?, ?, ?, ?)",
-        req.body.kundid,
-        req.body.object,
-        req.body.event, (err) => {
-            if (err) {
-                console.log(err);
+    db.run("INSERT INTO tradings (kundid, object, event, price) VALUES (?, ?, ?, ?)",
+    req.body.kundid,
+    req.body.object,
+    req.body.event, (err) => {
+        if (err) {
+            console.log(err);
+        }
+        res.status(201).json({
+            data: {
+                msg: "Got a POST request, sending back 201 Created"
             }
-            res.status(201).json({
-                data: {
-                    msg: "Got a POST request, sending back 201 Created"
-                }
-            });
         });
     });
 });
