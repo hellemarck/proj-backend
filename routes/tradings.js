@@ -33,5 +33,63 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
+router.post("/", (req, res, next) => checkToken(req, res, next),
+(req, res) => {
+    console.log(req.body.kundid);
+    console.log(req.body.object);
+    console.log(req.body.event);
+    console.log(req.body.price);
+
+    bcrypt.hash(req.body.pw, saltRounds, function(err, hash) {
+        db.run("INSERT INTO tradings (kundid, object, event, price) VALUES (?, ?, ?, ?)",
+        req.body.kundid,
+        req.body.object,
+        req.body.event, (err) => {
+            if (err) {
+                console.log(err);
+            }
+            res.status(201).json({
+                data: {
+                    msg: "Got a POST request, sending back 201 Created"
+                }
+            });
+        });
+    });
+});
+
+// function to verify user
+function checkToken(req, res, next) {
+    const token = req.headers['x-access-token'];
+
+    if (token) {
+        jwt.verify(token, jwtSecret, function(err) {
+            if(err) {
+                console.log("crashed");
+                return res.status(500).json({
+                    errors: {
+                        status: 500,
+                        title: "Token not verified",
+                        detail: "Token expired, cannot make changes"
+                    }
+                })
+            }
+            console.log("successfully validated token");
+            next();
+
+            return undefined;
+        });
+    } else {
+        return res.status(401).json({
+            errors: {
+                status: 401,
+                source: req.path,
+                title: "No token",
+                detail: "No token provided in request headers"
+            }
+        });
+    }
+};
+
+
 
 module.exports = router;
