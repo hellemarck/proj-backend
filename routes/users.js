@@ -25,23 +25,41 @@ router.get("/:id", (req, res, next) => {
 
 // Route to update user money depot
 // need to check token?
+// NEED TO BUILD THIS BOTH TO ADD AND TO SUBTRACT
 router.post("/", (req, res, next) => {
-    const deposit = req.body.deposit;
     const kundid = req.body.id;
 
-    db.run("UPDATE users SET depot = depot + (?) WHERE id = (?)",
-    deposit,
-    kundid, (err) => {
-        if (err) {
-            console.log(err);
-        }
-        res.status(201).json({
-            data: {
-                title: "Got a POST request, sending back 201 Created",
-                msg: "user depot updated"
+    if (req.body.cost) {
+        db.run("UPDATE users SET depot = depot - (?) WHERE id = (?)",
+        req.body.cost,
+        kundid, (err) => {
+            if (err) {
+                console.log(err);
             }
+            res.status(201).json({
+                data: {
+                    title: "Got a POST request, sending back 201 Created",
+                    msg: "user depot updated"
+                }
+            });
         });
-    });
+    } else {
+        const deposit = req.body.deposit;
+
+        db.run("UPDATE users SET depot = depot + (?) WHERE id = (?)",
+        deposit,
+        kundid, (err) => {
+            if (err) {
+                console.log(err);
+            }
+            res.status(201).json({
+                data: {
+                    title: "Got a POST request, sending back 201 Created",
+                    msg: "user depot updated"
+                }
+            });
+        });
+    }
 });
 
 module.exports = router;
