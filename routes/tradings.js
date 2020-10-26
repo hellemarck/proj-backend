@@ -35,25 +35,22 @@ router.get("/:id", (req, res, next) => {
 
 router.post("/", (req, res, next) => checkToken(req, res, next),
 (req, res) => {
-    console.log(req.body.kundid);
-    console.log(req.body.object);
-    console.log(req.body.event);
-    console.log(req.body.price);
-
-    db.run("INSERT INTO tradings (kundid, object, event, price) VALUES (?, ?, ?, ?)",
-    req.body.kundid,
-    req.body.object,
-    req.body.event,
-    req.body.price, (err) => {
-        if (err) {
-            console.log(err);
-        }
-        res.status(201).json({
-            data: {
-                msg: "Got a POST request, sending back 201 Created"
+    for (var i=0; i < req.body.quantity; i++) {
+        db.run("INSERT INTO tradings (kundid, object, event, price) VALUES (?, ?, ?, ?)",
+        req.body.kundid,
+        req.body.object,
+        req.body.event,
+        req.body.price, (err) => {
+            if (err) {
+                console.log(err);
             }
+            res.status(201).json({
+                data: {
+                    msg: "Got a POST request, sending back 201 Created"
+                }
+            });
         });
-    });
+    };
 });
 
 // function to verify user
