@@ -53,9 +53,16 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
     };
 });
 
+// router.put("/", (req, res) => {
+//     // PUT requests should return 204 No Content
+//     res.status(204).send();
+// });
+
 router.delete("/", (req, res) => {
+    var kundid = parseInt(req.body.id);
+
     db.run("DELETE FROM tradings WHERE (kundid = (?) AND object = (?)) LIMIT 1"),
-    req.body.id,
+    kundid,
     req.body.object, (err) => {
         if (err) {
             console.log(err);
