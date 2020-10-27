@@ -35,49 +35,67 @@ router.get("/", function(req, res, next) {
 
 router.post("/", (req, res, next) => checkToken(req, res, next),
 (req, res) => {
-    for (var i=0; i < req.body.quantity; i++) {
-        db.run("INSERT INTO tradings (kundid, object, event, price) VALUES (?, ?, ?, ?)",
-        req.body.kundid,
+    if (req.body.quantity) {
+        for (var i=0; i < req.body.quantity; i++) {
+            db.run("INSERT INTO tradings (kundid, object, event, price) VALUES (?, ?, ?, ?)",
+            req.body.kundid,
+            req.body.object,
+            req.body.event,
+            req.body.price, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                res.status(201).json({
+                    data: {
+                        msg: "Got a POST request, sending back 201 Created"
+                    }
+                });
+            });
+        };
+    } else {
+        db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?) AND event = (?)) LIMIT 1",
+        "Sold",
+        req.body.price,
+        req.body.id,
         req.body.object,
-        req.body.event,
-        req.body.price, (err) => {
+        "Bought", (err) => {
             if (err) {
                 console.log(err);
             }
-            res.status(201).json({
-                data: {
-                    msg: "Got a POST request, sending back 201 Created"
-                }
-            });
         });
-    };
+        res.status(201).json({
+            data: {
+                msg: "Got a POST request, sending back 201"
+            }
+        });
+    }
 });
 
 // router.put("/", (req, res) => {
 //     // PUT requests should return 204 No Content
 //     res.status(204).send();
 // });
-
-router.put("/", (req, res) => {
-    var kundid = parseInt(req.body.id);
-    var price = parseInt(req.body.price);
-
-    db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?) AND event = (?)) LIMIT 1",
-    "Sold",
-    price,
-    kundid,
-    req.body.object,
-    "Bought", (err) => {
-        if (err) {
-            console.log(err);
-        }
-    });
-    res.status(204).json({
-        data: {
-            msg: "Got a PUT request, sending back 204"
-        }
-    });
-});
+//
+// router.put("/", (req, res) => {
+//     var kundid = parseInt(req.body.id);
+//     var price = parseInt(req.body.price);
+//
+//     db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?) AND event = (?)) LIMIT 1",
+//     "Sold",
+//     price,
+//     kundid,
+//     req.body.object,
+//     "Bought", (err) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//     });
+//     res.status(204).json({
+//         data: {
+//             msg: "Got a PUT request, sending back 204"
+//         }
+//     });
+// });
 
 // function to verify user
 function checkToken(req, res, next) {
