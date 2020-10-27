@@ -58,26 +58,26 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
 //     res.status(204).send();
 // });
 
-// router.put("/", (req, res) => {
-//     console.log("YEPP");
-//     console.log(req.body);
-//     var kundid = parseInt(req.body.id);
-//
-//     db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) LIMIT 1"),
-//     "Sold",
-//     req.body.price,
-//     kundid,
-//     req.body.object, (err) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//     }
-//     res.status(204).json({
-//         data: {
-//             msg: "Got a PUT request, sending back 204"
-//         }
-//     });
-// });
+router.put("/", (req, res) => {
+    var kundid = parseInt(req.body.id);
+    var price = parseInt(req.body.price);
+
+    db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?) AND event = (?)) LIMIT 1",
+    "Sold",
+    price,
+    kundid,
+    req.body.object,
+    "Bought", (err) => {
+        if (err) {
+            console.log(err);
+        }
+    }
+    res.status(204).json({
+        data: {
+            msg: "Got a PUT request, sending back 204"
+        }
+    });
+});
 
 // function to verify user
 function checkToken(req, res, next) {
