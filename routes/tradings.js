@@ -71,7 +71,7 @@ router.put("/", (req, res) => {
         if (err) {
             console.log(err);
         }
-    }
+    });
     res.status(204).json({
         data: {
             msg: "Got a PUT request, sending back 204"
