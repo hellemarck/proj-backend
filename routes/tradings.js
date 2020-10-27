@@ -21,17 +21,17 @@ router.get("/", function(req, res, next) {
 });
 
 // history of user tradings
-router.get("/:id", (req, res, next) => {
-    db.each("SELECT * FROM tradings WHERE kundid = " + req.params.id, function(err, row) {
-        const data = {
-            kundid: row.kundid,
-            object: row.object,
-            event: row.event,
-            price: row.price
-        }
-        res.json(data);
-    });
-});
+// router.get("/:id", (req, res, next) => {
+//     db.each("SELECT * FROM tradings WHERE kundid = " + req.params.id, function(err, row) {
+//         const data = {
+//             kundid: row.kundid,
+//             object: row.object,
+//             event: row.event,
+//             price: row.price
+//         }
+//         res.json(data);
+//     });
+// });
 
 router.post("/", (req, res, next) => checkToken(req, res, next),
 (req, res) => {
@@ -51,6 +51,21 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
             });
         });
     };
+});
+
+router.delete("/", (req, res) => {
+    db.run("DELETE FROM tradings WHERE (kundid = (?) AND object = (?)) LIMIT 1"),
+    req.body.id,
+    req.body.object, (err) => {
+        if (err) {
+            console.log(err);
+        }
+    }
+    res.status(204).json({
+        data: {
+            msg: "Got a DELETE request, sending back 204"
+        }
+    });
 });
 
 // function to verify user
