@@ -53,7 +53,7 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
             });
         };
     } else {
-        db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?) AND event = (?)) LIMIT 1",
+        db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) LIMIT 1",
         "Sold",
         req.body.price,
         req.body.id,
