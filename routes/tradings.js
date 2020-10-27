@@ -55,7 +55,7 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
     } else {
         // "UPDATE users SET depot = depot - (?) WHERE id = (?)"
         db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) LIMIT 1",
-        "Sold",
+        req.body.sold,
         req.body.price,
         req.body.id,
         req.body.object, (err) => {
@@ -68,7 +68,8 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
                 msg: "Got a POST request, sending back 201",
                 price: req.body.price,
                 id: req.body.id,
-                object: req.body.object
+                object: req.body.object,
+                sold: req.body.sold
             }
         });
     }
