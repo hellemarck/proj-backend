@@ -58,10 +58,12 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
 //     res.status(204).send();
 // });
 
-router.delete("/", (req, res) => {
+router.put("/", (req, res) => {
     var kundid = parseInt(req.body.id);
 
-    db.run("DELETE FROM tradings WHERE (kundid = (?) AND object = (?)) LIMIT 1"),
+    db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) LIMIT 1"),
+    "Sold",
+    req.body.price,
     kundid,
     req.body.object, (err) => {
         if (err) {
@@ -70,7 +72,7 @@ router.delete("/", (req, res) => {
     }
     res.status(204).json({
         data: {
-            msg: "Got a DELETE request, sending back 204"
+            msg: "Got a PUT request, sending back 204"
         }
     });
 });
