@@ -30,6 +30,28 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
+router.post("/:id", (req, res, next) => checkToken(req, res, next),
+(req, res) => {
+    db.run("UPDATE tradings SET event = (?), price = (?) WHERE object = (?) LIMIT 1",
+    req.body.sold,
+    req.body.price,
+    // kundid,
+    req.body.object, (err) => {
+        if (err) {
+            console.log(err);
+        }
+        res.status(201).json({
+            data: {
+                msg: "Got a POST request, sending back 201 ROW CHANGED",
+                price: req.body.price,
+                // id: kundid,
+                object: req.body.object,
+                sold: req.body.sold
+            }
+        });
+    });
+});
+
 router.post("/", (req, res, next) => checkToken(req, res, next),
 (req, res) => {
     if (req.body.quantity) {
