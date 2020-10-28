@@ -55,9 +55,7 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
     } else {
         var kundid = req.body.id;
         kundid = parseInt(kundid);
-        console.log(typeof kundid);
-        // "UPDATE users SET depot = depot - (?) WHERE id = (?)"
-        // UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) LIMIT 1
+
         db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) LIMIT 1",
         req.body.sold,
         req.body.price,
@@ -66,15 +64,15 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
             if (err) {
                 console.log(err);
             }
-        });
-        res.status(201).json({
-            data: {
-                msg: "Got a POST request, sending back 201",
-                price: req.body.price,
-                id: req.body.id,
-                object: req.body.object,
-                sold: req.body.sold
-            }
+            res.status(201).json({
+                data: {
+                    msg: "Got a POST request, sending back 201 ROW CHANGED",
+                    price: req.body.price,
+                    id: kundid,
+                    object: req.body.object,
+                    sold: req.body.sold
+                }
+            });
         });
     }
 });
