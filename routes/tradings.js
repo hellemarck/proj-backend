@@ -33,8 +33,9 @@ router.get("/:id", (req, res, next) => {
 router.post("/:id", (req, res, next) => checkToken(req, res, next),
 (req, res) => {
     // "UPDATE tradings SET event = (?), price = (?) WHERE object = (?) LIMIT 1"
-    db.run("DELETE FROM tradings WHERE (kundid = (?) AND object = (?)) LIMIT 1",
-    kundid,
+    db.run("UPDATE tradings SET event = (?), price = (?) WHERE object = (?)",
+    req.body.sold,
+    req.body.price,
     req.body.object, (err) => {
         if (err) {
             console.log(err);
@@ -42,8 +43,7 @@ router.post("/:id", (req, res, next) => checkToken(req, res, next),
         res.status(201).json({
             data: {
                 msg: "Got a POST request, sending back 201 ROW CHANGED",
-                id: kundid,
-                object: req.body.object
+                object: req.body.object + " sold"
             }
         });
     });
