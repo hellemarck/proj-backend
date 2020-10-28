@@ -21,17 +21,14 @@ router.get("/", function(req, res, next) {
 });
 
 // history of user tradings
-// router.get("/:id", (req, res, next) => {
-//     db.each("SELECT * FROM tradings WHERE kundid = " + req.params.id, function(err, row) {
-//         const data = {
-//             kundid: row.kundid,
-//             object: row.object,
-//             event: row.event,
-//             price: row.price
-//         }
-//         res.json(data);
-//     });
-// });
+router.get("/:id", (req, res, next) => {
+    db.all("SELECT * FROM tradings WHERE kundid = " + req.params.id, function(err, rows) {
+        if (err) {
+            console.log(err)
+        }
+        res.json(rows);
+    });
+});
 
 router.post("/", (req, res, next) => checkToken(req, res, next),
 (req, res) => {
