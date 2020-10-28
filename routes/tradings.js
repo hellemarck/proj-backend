@@ -58,7 +58,7 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
         console.log(typeof kundid);
         // "UPDATE users SET depot = depot - (?) WHERE id = (?)"
         // UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) LIMIT 1
-        db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) ORDER BY price LIMIT 1",
+        db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) LIMIT 1",
         req.body.sold,
         req.body.price,
         kundid,
