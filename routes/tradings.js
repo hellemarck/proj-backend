@@ -53,12 +53,15 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
             });
         };
     } else {
+        var kundid = req.body.id;
+        kundid = parseInt(kundid);
+        console.log(typeof kundid);
         // "UPDATE users SET depot = depot - (?) WHERE id = (?)"
         // UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) LIMIT 1
         db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) ORDER BY price LIMIT 1",
         req.body.sold,
         req.body.price,
-        req.body.id,
+        kundid,
         req.body.object, (err) => {
             if (err) {
                 console.log(err);
