@@ -32,11 +32,13 @@ router.get("/:id", (req, res, next) => {
 
 router.post("/:id", (req, res, next) => checkToken(req, res, next),
 (req, res) => {
+    var kundid = parseInt(req.body.id);
     // "UPDATE tradings SET event = (?), price = (?) WHERE object = (?) LIMIT 1"
-    db.run("UPDATE tradings SET event = (?), price = (?) WHERE object = (?)",
+    db.run("UPDATE tradings SET event = (?), price = (?) WHERE (object = (?) AND kundid = (?))",
     req.body.sold,
     req.body.price,
-    req.body.object, (err) => {
+    req.body.object,
+    kundid, (err) => {
         if (err) {
             console.log(err);
         }
