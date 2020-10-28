@@ -51,46 +51,22 @@ router.post("/:id", (req, res, next) => checkToken(req, res, next),
 
 router.post("/", (req, res, next) => checkToken(req, res, next),
 (req, res) => {
-    if (req.body.quantity) {
-        for (var i=0; i < req.body.quantity; i++) {
-            db.run("INSERT INTO tradings (kundid, object, event, price) VALUES (?, ?, ?, ?)",
-            req.body.kundid,
-            req.body.object,
-            req.body.event,
-            req.body.price, (err) => {
-                if (err) {
-                    console.log(err);
-                }
-                res.status(201).json({
-                    data: {
-                        msg: "Got a POST request, sending back 201 Created"
-                    }
-                });
-            });
-        };
-    } else {
-        var kundid = req.body.id;
-        kundid = parseInt(kundid);
-
-        db.run("UPDATE tradings SET event = (?), price = (?) WHERE (kundid = (?) AND object = (?)) LIMIT 1",
-        req.body.sold,
-        req.body.price,
-        kundid,
-        req.body.object, (err) => {
+    for (var i=0; i < req.body.quantity; i++) {
+        db.run("INSERT INTO tradings (kundid, object, event, price) VALUES (?, ?, ?, ?)",
+        req.body.kundid,
+        req.body.object,
+        req.body.event,
+        req.body.price, (err) => {
             if (err) {
                 console.log(err);
             }
             res.status(201).json({
                 data: {
-                    msg: "Got a POST request, sending back 201 ROW CHANGED",
-                    price: req.body.price,
-                    id: kundid,
-                    object: req.body.object,
-                    sold: req.body.sold
+                    msg: "Got a POST request, sending back 201 Created"
                 }
             });
         });
-    }
+    };
 });
 
 // function to verify user
