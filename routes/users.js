@@ -30,8 +30,9 @@ router.post("/", (req, res, next) => {
     const kundid = req.body.id;
 
     if (req.body.cost) {
+        var reduce = parseInt(req.body.cost);
         db.run("UPDATE users SET depot = depot - (?) WHERE id = (?)",
-        req.body.cost,
+        reduce,
         kundid, (err) => {
             if (err) {
                 console.log(err);
@@ -44,7 +45,7 @@ router.post("/", (req, res, next) => {
             });
         });
     } else {
-        const deposit = req.body.deposit;
+        var deposit = parseInt(req.body.deposit);
 
         db.run("UPDATE users SET depot = depot + (?) WHERE id = (?)",
         deposit,
