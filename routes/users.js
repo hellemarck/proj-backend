@@ -37,7 +37,7 @@ router.post("/", (req, res, next) => {
             if (err) {
                 console.log(err);
             }
-            res.status(201).json({
+            return res.status(201).json({
                 data: {
                     title: "Got a POST request, sending back 201 Created",
                     msg: "user depot updated"
@@ -53,7 +53,7 @@ router.post("/", (req, res, next) => {
             if (err) {
                 console.log(err);
             }
-            res.status(201).json({
+            return res.status(201).json({
                 data: {
                     title: "Got a POST request, sending back 201 Created",
                     msg: "user depot updated"

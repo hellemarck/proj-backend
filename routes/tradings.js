@@ -42,7 +42,7 @@ router.post("/:id", (req, res, next) => checkToken(req, res, next),
         if (err) {
             console.log(err);
         }
-        res.status(201).json({
+        return res.status(201).json({
             data: {
                 msg: "Got a POST request, sending back 201 ROW CHANGED",
                 object: req.body.object + " sold"
@@ -62,9 +62,10 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
             if (err) {
                 console.log(err);
             }
-            res.status(201).json({
+            return res.status(201).json({
                 data: {
-                    msg: "Got a POST request, sending back 201 Created"
+                    msg: "Got a POST request, sending back 201 Created",
+                    object: req.body.object + " bought"
                 }
             });
         });
