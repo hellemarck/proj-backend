@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 
 
 
-var presentation = `<p>Välkommen till webbshopen för posters, med realtidsvärdering! Bläddra runt bland utbudet, investera i det som faller dig i smaken och sälj med förtjänst.</p>
+var presentation = `<p style={{fontSize:"20px", textAlign: "center"}}>Välkommen till webbshopen för posters, med realtidsvärdering! Bläddra runt bland utbudet, investera i det som faller dig i smaken och sälj med förtjänst.</p>
 
 `;
 
