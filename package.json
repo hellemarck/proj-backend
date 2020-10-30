@@ -4,12 +4,9 @@
   "description": "backend for course jsramverk, using express and node",
   "main": "index.js",
   "scripts": {
-    "pretest": "bash db/reset_test_db.bash",
-    "test": "nyc --reporter=html --reporter=text --reporter=clover mocha --timeout 10000",
     "start": "node app.js",
     "clean": "rm -rf node_modules package-lock.json",
-    "production": "NODE_ENV='production' node app.js",
-    "eslint": "eslint ."
+    "production": "NODE_ENV='production' node app.js"
   },
   "author": "mette hellemarck",
   "license": "ISC",

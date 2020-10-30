@@ -1,4 +1,4 @@
--- sql code, sqlite db
+-- CODE TO CREATE THE DATABASE USED IN THE PROJECT
 
 -- DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users (
@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
     UNIQUE(email)
 );
 
+-- DROP TABLE IF EXISTS tradings;
 CREATE TABLE IF NOT EXISTS tradings (
     kundid INT NOT NULL,
     object VARCHAR(30) NOT NULL,
@@ -31,17 +32,17 @@ CREATE TABLE IF NOT EXISTS posters (
     price INT(3) NOT NULL
 );
 
--- INSERT INTO posters
---     (id, title, image, description, price)
--- VALUES
---     (1, "Swim for health", "poster3.jpg", "70x130cm", 200),
---     (2, "Keeping up", "poster4.jpg", "60x90cm", 210),
---     (3, "Peace", "poster1.jpg", "80x120cm", 225),
---     (4, "Keep your teeth clean", "poster2.jpg", "50x100cm", 250),
---     (5, "Washington DC", "poster5.jpg", "50x70cm", 180),
---     (6, "Let them grow", "poster6.jpg", "50x70cm", 190),
---     (7, "Scheveningen", "poster7.jpg", "60x90cm", 220),
---     (8, "Montreal 1924", "poster8.jpg", "70x130cm", 230),
---     (9, "BTLM", "poster9.jpg", "60x90", 210),
---     (10, "Like Picasso", "poster10.jpg", "60x90cm", 200)
--- ;
+INSERT INTO posters
+    (id, title, image, description, price)
+VALUES
+    (1, "Swim for health", "poster3.jpg", "70x130cm", 200),
+    (2, "Keeping up", "poster4.jpg", "60x90cm", 210),
+    (3, "Peace", "poster1.jpg", "80x120cm", 225),
+    (4, "Keep your teeth clean", "poster2.jpg", "50x100cm", 250),
+    (5, "Washington DC", "poster5.jpg", "50x70cm", 180),
+    (6, "Let them grow", "poster6.jpg", "50x70cm", 190),
+    (7, "Scheveningen", "poster7.jpg", "60x90cm", 220),
+    (8, "Montreal 1924", "poster8.jpg", "70x130cm", 230),
+    (9, "BTLM", "poster9.jpg", "60x90", 210),
+    (10, "Like Picasso", "poster10.jpg", "60x90cm", 200)
+;

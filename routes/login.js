@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
-// const db = new sqlite3.Database('./db/texts.sqlite');
 const db = require("../db/database.js");
 const bodyParser = require("body-parser");
 router.use(bodyParser.json());
@@ -9,8 +8,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 router.use(express.json());
 const saltRounds = 10;
-
-// let config = require('../config/config.json');
 
 const jwtSecret = process.env.JWT_SECRET;
 
