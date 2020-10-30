@@ -62,14 +62,14 @@ router.post("/", (req, res, next) => checkToken(req, res, next),
             if (err) {
                 console.log(err);
             }
-            return res.status(201).json({
-                data: {
-                    msg: "Got a POST request, sending back 201 Created",
-                    object: req.body.object + " bought"
-                }
-            });
         });
     };
+    return res.status(201).json({
+        data: {
+            msg: "Got a POST request, sending back 201 Created",
+            object: req.body.object + " bought"
+        }
+    });
 });
 
 // function to verify user
