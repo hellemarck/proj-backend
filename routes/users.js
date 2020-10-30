@@ -24,10 +24,9 @@ router.get("/:id", (req, res, next) => {
 });
 
 // Route to update user money depot
-// need to check token?
 // NEED TO BUILD THIS BOTH TO ADD AND TO SUBTRACT
 router.post("/", (req, res, next) => {
-    const kundid = req.body.id;
+    const kundid = parseInt(req.body.id);
 
     if (req.body.cost) {
         var reduce = parseInt(req.body.cost);
